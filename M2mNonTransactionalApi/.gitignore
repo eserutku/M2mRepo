@@ -1,0 +1,24 @@
+## Generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+tmp/
+*.tmp
+*.bak
+*.swp
+
+## Eclipse
+/build/
+/bin/
+target/
+/.settings/
+.loadpath
+bin/**
+.project
+.metadata
+*.launch
+.buildpath
+.springbeans
+/.classpath
