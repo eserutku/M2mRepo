@@ -1,6 +1,12 @@
 package uk.co.kayratech.m2m.platform.dao;
 
-public interface BaseDao {
+import java.io.Serializable;
 
-	public <T> T findAudit(Class<T> classT, Object primaryKey, long revisionId);
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
+
+@NoRepositoryBean
+public interface BaseDao<T, ID extends Serializable> extends JpaRepository<T, ID> {
+
+	public T findAudit(Class<T> classT, ID primaryKey, long revisionId);
 }

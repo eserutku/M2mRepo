@@ -15,4 +15,9 @@ public class UserDaoIntegrationTest {
 	public void testUpdatingUserPopulatesLastUpdateFieldsButNotCreatedFields() {
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	public void testUserAuditCanBeFetched() {
+		
+	}
 }
