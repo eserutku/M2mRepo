@@ -14,7 +14,7 @@ import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext
 import uk.co.kayratech.m2m.platform.common.i18n.MessageProvider;
 import uk.co.kayratech.m2m.platform.model.constants.EntityConstraints;
 
-public class UserTest {
+public class UserTest extends M2mModelBaseTest {
 
 	private static final Locale testLocale = Locale.ENGLISH;
 

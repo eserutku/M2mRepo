@@ -1,18 +1,15 @@
 package uk.co.kayratech.m2m.platform.model;
 
-import static org.junit.Assert.*;
-
 import java.util.Locale;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
 import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
 
-public class M2MModelBaseTest {
+public class M2mModelBaseTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -30,10 +27,4 @@ public class M2MModelBaseTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-
 }

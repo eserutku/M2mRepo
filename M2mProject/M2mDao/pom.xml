@@ -13,6 +13,11 @@
 	<artifactId>M2mDao</artifactId>
 	<dependencies>
 		<dependency>
+			<groupId>co.uk.kayratech.m2m</groupId>
+			<artifactId>M2mModel</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>uk.co.kayratech.libs</groupId>
 			<artifactId>aoplib</artifactId>
 			<version>0.0.1-SNAPSHOT</version>

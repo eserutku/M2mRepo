@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class UserDaoIntegrationTest {
+public class UserDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 
 	@Test
 	public void testPersistingUserPopulatesCreatedAndLastUpdateFields() {
@@ -18,6 +18,11 @@ public class UserDaoIntegrationTest {
 	
 	@Test
 	public void testUserAuditCanBeFetched() {
-		
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testFindUserByUsername() {
+		fail("Not yet implemented");
 	}
 }

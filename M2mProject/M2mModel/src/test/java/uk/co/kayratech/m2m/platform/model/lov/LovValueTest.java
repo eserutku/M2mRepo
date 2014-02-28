@@ -5,10 +5,10 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import uk.co.kayratech.m2m.platform.model.M2MModelBaseTest;
+import uk.co.kayratech.m2m.platform.model.M2mModelBaseTest;
 import uk.co.kayratech.m2m.platform.model.exceptions.DisplayValueForLangNotFoundException;
 
-public class LovValueTest extends M2MModelBaseTest {
+public class LovValueTest extends M2mModelBaseTest {
 
 	private static final String DISPLAY_VALUE_EN = "Display Value English";
 	private static final String DISPLAY_VALUE_TR = "Display Value Turkish";
