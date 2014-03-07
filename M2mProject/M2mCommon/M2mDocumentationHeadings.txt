@@ -1,7 +1,18 @@
 Dependencies on M2M
 
+Changes to be made for other projects
+All package names
+Common:
+- uk.co.kayratech.m2m.platform.common.exceptions M2MBusinessException
+Mode:
+- M2mModelBaseTest class
+Dao:
+- jpaConfiguration.xml persistenceUnitName
+- persistence.xml persistence-unit
+- M2M_VERSION table as it has no corresponding domain model object
 
 
+Things to describe in documentation
 Common:
 - General description
 - i18n
@@ -18,5 +29,5 @@ Dao
 - Rule of having 1 dao for each domain model object
 - Basic Spring data setup with BaseDao being parent of all daos
 - Location of all resources
-	- How resources are copied to right dirs upon build
+	- How resources are copied to right dirs upon build (FileSync Eclipse plugin)
 	- Building for different environments

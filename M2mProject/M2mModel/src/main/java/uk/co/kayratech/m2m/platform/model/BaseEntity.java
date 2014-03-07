@@ -2,7 +2,6 @@ package uk.co.kayratech.m2m.platform.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -21,6 +22,8 @@ import javax.validation.metadata.ConstraintDescriptor;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
 import uk.co.kayratech.m2m.platform.common.i18n.MessageProvider;
@@ -34,9 +37,9 @@ public abstract class BaseEntity implements Serializable {
 	private static final String VALIDATION_MAX_SIZE_KEYWORD = "max";
 
 	private String technicalId;
-	private Date created;
+	private DateTime created;
 	private String createdBy;
-	private Date lastUpdate;
+	private DateTime lastUpdate;
 	private String lastUpdateBy;
 	private int modificationNo;
 	private String integrationId;
@@ -56,12 +59,13 @@ public abstract class BaseEntity implements Serializable {
 		this.technicalId = technicalId;
 	}
 
-	@Column(name = "CREATED", nullable = false, length = 7)
-	public Date getCreated() {
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATED", nullable = false)
+	public DateTime getCreated() {
 		return this.created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(DateTime created) {
 		this.created = created;
 	}
 
@@ -74,12 +78,14 @@ public abstract class BaseEntity implements Serializable {
 		this.createdBy = createdBy;
 	}
 
-	@Column(name = "LAST_UPDATE", nullable = false, length = 7)
-	public Date getLastUpdate() {
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LAST_UPDATE", nullable = false)
+	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+	public DateTime getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Date lastUpdate) {
+	public void setLastUpdate(DateTime lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
@@ -94,6 +100,7 @@ public abstract class BaseEntity implements Serializable {
 
 	@Version
 	@Column(name = "MODIFICATION_NO", nullable = false, precision = 9, scale = 0)
+	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	public int getModificationNo() {
 		return this.modificationNo;
 	}
@@ -179,9 +186,9 @@ public abstract class BaseEntity implements Serializable {
 	@PrePersist
 	public void prePersist() {
 		if (getCreated() == null)
-			setCreated(new Date());
+			setCreated(new DateTime());
 		if (getLastUpdate() == null)
-			setLastUpdate(new Date());
+			setLastUpdate(new DateTime());
 		// TODO: Use Spring security to get the principal here. Not thread local
 		String user = InheritableThreadLocalContext.instance.get().getUsername();
 		if (getCreatedBy() == null)
@@ -193,7 +200,7 @@ public abstract class BaseEntity implements Serializable {
 	@PreUpdate
 	public void preUpdate() {
 		if (getLastUpdate() == null)
-			setLastUpdate(new Date());
+			setLastUpdate(new DateTime());
 		// TODO: Use Spring security to get the principal here. Not thread local
 		String user = InheritableThreadLocalContext.instance.get().getUsername();
 		if (getLastUpdateBy() == null)

@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "REVINFO")
+@Table(name = "M2M_REVINFO")
 public class Revinfo implements java.io.Serializable {
 
 	private static final long serialVersionUID = -742877170580678196L;
