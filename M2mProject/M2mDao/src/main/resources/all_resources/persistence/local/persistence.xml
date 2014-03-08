@@ -6,9 +6,24 @@
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="m2m-jpa">
 		<class>uk.co.kayratech.m2m.platform.model.AppConfigParameter</class>
-		<class>uk.co.kayratech.m2m.platform.model.Revinfo</class>
 		<class>uk.co.kayratech.m2m.platform.model.User</class>
-		<class>uk.co.kayratech.m2m.platform.model.LovType</class>
-		<class>uk.co.kayratech.m2m.platform.model.LovValue</class>
+		<class>uk.co.kayratech.m2m.platform.model.lov.LovType</class>
+		<class>uk.co.kayratech.m2m.platform.model.lov.LovValue</class>
+		<class>uk.co.kayratech.m2m.platform.model.lov.LovDisplayValue</class>
+		<class>uk.co.kayratech.m2m.platform.model.audit.AuditRevisionEntity</class>
+		
+		<properties>
+			<!-- Auditing properties Start -->
+			<property name="org.hibernate.envers.revision_on_collection_change"
+				value="false" />
+			<property name="org.hibernate.envers.audit_strategy"
+				value="org.hibernate.envers.strategy.ValidityAuditStrategy" />
+			<property
+				name="org.hibernate.envers.audit_strategy_validity_store_revend_timestamp"
+				value="true" />
+			<property name="org.hibernate.envers.track_entities_changed_in_revision"
+				value="true" />
+			<!-- Auditing properties End -->
+		</properties>
 	</persistence-unit>
 </persistence>

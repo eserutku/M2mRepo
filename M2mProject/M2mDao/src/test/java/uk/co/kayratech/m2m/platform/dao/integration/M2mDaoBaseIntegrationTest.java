@@ -1,17 +1,17 @@
-package uk.co.kayratech.m2m.platform.dao;
-
-import static org.junit.Assert.*;
+package uk.co.kayratech.m2m.platform.dao.integration;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
-public class LovValueDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
+import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
+
+public class M2mDaoBaseIntegrationTest {
 
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void beforeClass() {
+		InheritableThreadLocalContext.instance.get().setUsername("TEST_USER");
 	}
 
 	@AfterClass
@@ -24,10 +24,5 @@ public class LovValueDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 
 	@After
 	public void tearDown() throws Exception {
-	}
-
-	@Test
-	public void testFindAllLovValues() {
-		fail("Not yet implemented");
 	}
 }

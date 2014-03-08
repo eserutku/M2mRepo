@@ -6,7 +6,7 @@ import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext
 
 
 public class AuditListenerEntity implements RevisionListener {
-
+	
 	@Override
 	public void newRevision(Object revisionEntity) {
 		AuditRevisionEntity revEntity = (AuditRevisionEntity)revisionEntity;

@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -44,9 +42,6 @@ public abstract class BaseEntity implements Serializable {
 	private int modificationNo;
 	private String integrationId;
 
-	public BaseEntity() {
-	}
-
 	@Id
 	@Column(name = "TECHNICAL_KEY", nullable = false, unique = true, length = 36)
 	@GenericGenerator(name = "M2M_TECH_KEY_UUID_SEQ", strategy = "uuid")
@@ -59,8 +54,8 @@ public abstract class BaseEntity implements Serializable {
 		this.technicalId = technicalId;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CREATED", nullable = false)
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	public DateTime getCreated() {
 		return this.created;
 	}
@@ -78,9 +73,8 @@ public abstract class BaseEntity implements Serializable {
 		this.createdBy = createdBy;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "LAST_UPDATE", nullable = false)
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	public DateTime getLastUpdate() {
 		return this.lastUpdate;
 	}
@@ -100,7 +94,6 @@ public abstract class BaseEntity implements Serializable {
 
 	@Version
 	@Column(name = "MODIFICATION_NO", nullable = false, precision = 9, scale = 0)
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	public int getModificationNo() {
 		return this.modificationNo;
 	}
@@ -119,34 +112,32 @@ public abstract class BaseEntity implements Serializable {
 		this.integrationId = integrationId;
 	}
 
-	public static synchronized <T extends BaseEntity> List<String> validate(
-			T unvalidatedObj) {
+	public static synchronized <T extends BaseEntity> List<String> validate(T unvalidatedObj) {
 		List<String> validatitonMessages = new ArrayList<String>();
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 		List<ConstraintViolation<T>> violations = new ArrayList<ConstraintViolation<T>>(
 				validator.validate(unvalidatedObj));
 		for (ConstraintViolation<T> constraintViolation : violations) {
-			ConstraintDescriptor<?> constraintDesc = constraintViolation
-					.getConstraintDescriptor();
+			ConstraintDescriptor<?> constraintDesc = constraintViolation.getConstraintDescriptor();
 			if (constraintDesc.getAnnotation() instanceof javax.validation.constraints.Size) {
 				Object maxAllowedVal = constraintDesc.getAttributes().get(
 						VALIDATION_MAX_SIZE_KEYWORD);
 				Object valueGiven = constraintViolation.getInvalidValue();
 				if (valueGiven instanceof String) {
 					validatitonMessages.add(MessageProvider.getMessage(
-							constraintViolation.getMessage(), new Object[] {
-									maxAllowedVal, ((String) valueGiven).length() }));
+							constraintViolation.getMessage(), new Object[] { maxAllowedVal,
+									((String) valueGiven).length() }));
 				}
 				else {
 					validatitonMessages.add(MessageProvider.getMessage(
-							constraintViolation.getMessage(), new Object[] {
-									maxAllowedVal, "invalid" }));
+							constraintViolation.getMessage(), new Object[] { maxAllowedVal,
+									"invalid" }));
 				}
 			}
 			else {
-				validatitonMessages.add(MessageProvider.getMessage(constraintViolation
-						.getMessage()));
+				validatitonMessages
+						.add(MessageProvider.getMessage(constraintViolation.getMessage()));
 			}
 		}
 		return validatitonMessages;
@@ -178,32 +169,30 @@ public abstract class BaseEntity implements Serializable {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		sb.append(" rowId: ");
+		sb.append(" techId: ");
 		sb.append(getTechnicalId());
+		sb.append(" ");
+		sb.append(buildStringRepresentation());
 		return new String(sb);
 	}
 
+	protected abstract StringBuffer buildStringRepresentation();
+
 	@PrePersist
 	public void prePersist() {
-		if (getCreated() == null)
-			setCreated(new DateTime());
-		if (getLastUpdate() == null)
-			setLastUpdate(new DateTime());
+		setCreated(new DateTime());
+		setLastUpdate(new DateTime());
 		// TODO: Use Spring security to get the principal here. Not thread local
 		String user = InheritableThreadLocalContext.instance.get().getUsername();
-		if (getCreatedBy() == null)
-			setCreatedBy(user);
-		if (getLastUpdateBy() == null)
-			setLastUpdateBy(user);
+		setCreatedBy(user);
+		setLastUpdateBy(user);
 	}
-	
+
 	@PreUpdate
 	public void preUpdate() {
-		if (getLastUpdate() == null)
-			setLastUpdate(new DateTime());
+		setLastUpdate(new DateTime());
 		// TODO: Use Spring security to get the principal here. Not thread local
 		String user = InheritableThreadLocalContext.instance.get().getUsername();
-		if (getLastUpdateBy() == null)
-			setLastUpdateBy(user);
+		setLastUpdateBy(user);
 	}
 }

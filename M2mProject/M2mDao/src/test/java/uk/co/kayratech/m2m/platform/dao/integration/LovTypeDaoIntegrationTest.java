@@ -1,11 +1,14 @@
-package uk.co.kayratech.m2m.platform.dao;
+package uk.co.kayratech.m2m.platform.dao.integration;
+
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
-public class M2mDaoBaseIntegrationTest {
+public class LovTypeDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -22,4 +25,10 @@ public class M2mDaoBaseIntegrationTest {
 	@After
 	public void tearDown() throws Exception {
 	}
+
+	@Test
+	public void testFindLovTypeByLovValue() {
+		fail("Not yet implemented");
+	}
+
 }

@@ -30,6 +30,15 @@ public class LovType extends BaseEntity {
 	private Set<LovType> children;
 	private Set<LovValue> values;
 
+	@Override
+	protected StringBuffer buildStringRepresentation() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("LovType: ");
+		sb.append(lovType);
+		
+		return sb;
+	}
+	
 	@Column(name = "LOV_NAME", unique = false, nullable = false, length = 30)
 	public String getLovType() {
 		return lovType;

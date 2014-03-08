@@ -44,6 +44,16 @@ public abstract class LovValue extends BaseEntity implements Serializable {
 	private LovStatus status;
 	private Set<LovDisplayValue> displayValues = new HashSet<LovDisplayValue>();
 
+	@Override
+	protected StringBuffer buildStringRepresentation() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("Lic: ");
+		sb.append(lic);
+		sb.append(" Display Value: ");
+		sb.append(displayValue);
+		return sb;
+	}
+	
 	@Column(name = "LIC", unique = true, nullable = false, length = 40)
 	public String getLic() {
 		return lic;
@@ -114,7 +124,7 @@ public abstract class LovValue extends BaseEntity implements Serializable {
 		this.displayValues = displayValues;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "baseLov")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lovValue")
 	public Set<LovDisplayValue> getDisplayValues() {
 		return displayValues;
 	}

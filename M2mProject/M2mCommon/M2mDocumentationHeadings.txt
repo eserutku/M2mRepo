@@ -4,8 +4,9 @@ Changes to be made for other projects
 All package names
 Common:
 - uk.co.kayratech.m2m.platform.common.exceptions M2MBusinessException
-Mode:
+Model:
 - M2mModelBaseTest class
+- All table names for domain model objects under model package
 Dao:
 - jpaConfiguration.xml persistenceUnitName
 - persistence.xml persistence-unit

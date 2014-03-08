@@ -16,6 +16,16 @@ public class AppConfigParameter extends BaseEntity {
 	private String paramName;
 	private String paramValue;
 	private String description;
+	
+	@Override
+	protected StringBuffer buildStringRepresentation() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("Param name: ");
+		sb.append(paramName);
+		sb.append(" Param value: ");
+		sb.append(paramValue);
+		return sb;
+	}
 
 	@Column(name = "PARAM_NAME", nullable = false)
 	@Size(max = 100, message = EntityConstraints.PARAM_NAME_TOO_LONG_MSG_KEY)
