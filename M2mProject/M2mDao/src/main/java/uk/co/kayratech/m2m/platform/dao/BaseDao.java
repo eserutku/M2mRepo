@@ -14,4 +14,6 @@ public interface BaseDao<T, ID extends Serializable> extends JpaRepository<T, ID
 	public List<T> findByExample(T example, boolean eagerFetch) throws M2MBusinessException;
 
 	public T findAudit(Class<T> classT, ID primaryKey, long revisionId) throws M2MBusinessException;
+
+	List<Number> getRevisionsForObject(Class<T> clazz, String primaryKey);
 }

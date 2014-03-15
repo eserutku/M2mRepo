@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import uk.co.kayratech.m2m.platform.dao.UserDao;
 import uk.co.kayratech.m2m.platform.model.User;
@@ -24,11 +25,16 @@ public class UserDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 
 	@Autowired
 	private UserDao classUnderTest;
+	@Autowired
 	private UserSupport support = new UserSupport();
+	@Autowired
+	private UserTxSupport txSupport;
 	
 	@Before
 	public void before()
 	{
+		// TODO: Create a method, probably in support classes, to clean the DB
+//		txSupport = new UserTxSupportImpl(classUnderTest);
 		classUnderTest.deleteAll();
 	}
 	
@@ -65,15 +71,19 @@ public class UserDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 	}
 
 	@Test
-//	@Transactional
-	public void testUserAuditCanBeFetched() {
+	public void testUserIsAudited() {
 		User user = support.getPopulatedInstanceToBeSaved(User.class);
-		user = classUnderTest.save(user);
+		user = txSupport.save(user);
+		List<Number> revisions = txSupport.getRevisionsForObject(User.class, user.getTechnicalId());
+		int lastRevision = revisions.get(revisions.size()-1).intValue();
+		
 		user.setUsername(user.getUsername()+ "2");
+		user = txSupport.save(user);
 		
-		user = classUnderTest.save(user);
+		List<Number> revisionsAfterUpdate = txSupport.getRevisionsForObject(User.class, user.getTechnicalId());
+		int lastRevisionAfterUpdate = revisionsAfterUpdate.get(revisionsAfterUpdate.size()-1).intValue();
 		
-		classUnderTest.delete(user);
+		assertEquals(lastRevision+1, lastRevisionAfterUpdate);
 	}
 
 	@Test

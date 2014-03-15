@@ -44,7 +44,7 @@ public abstract class BaseEntity implements Serializable {
 
 	@Id
 	@Column(name = "TECHNICAL_KEY", nullable = false, unique = true, length = 36)
-	@GenericGenerator(name = "M2M_TECH_KEY_UUID_SEQ", strategy = "uuid")
+	@GenericGenerator(name = "M2M_TECH_KEY_UUID_SEQ", strategy = "uuid2")
 	@GeneratedValue(generator = "M2M_TECH_KEY_UUID_SEQ")
 	public String getTechnicalId() {
 		return this.technicalId;

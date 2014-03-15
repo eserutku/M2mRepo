@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
+import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
@@ -16,6 +18,7 @@ import uk.co.kayratech.m2m.platform.dao.BaseDao;
 public class BaseDaoImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements
 		BaseDao<T, ID> {
 
+	@PersistenceContext
 	private EntityManager em;
 
 	public BaseDaoImpl(Class<T> domainClass, EntityManager entityManager) {
@@ -30,9 +33,15 @@ public class BaseDaoImpl<T, ID extends Serializable> extends SimpleJpaRepository
 		return null;
 	}
 
-	@NoAutoLogging
+	@Override
 	public T findAudit(Class<T> classT, ID primaryKey, long revisionId) throws M2MBusinessException {
 		return AuditReaderFactory.get(em).find(classT, primaryKey, revisionId);
 	}
 
+	@Override
+	public List<Number> getRevisionsForObject(Class<T> clazz, String primaryKey) {
+		AuditReader auditReader = AuditReaderFactory.get(em);
+		List<Number> revisions = auditReader.getRevisions(clazz, primaryKey);
+		return revisions;
+	}
 }
