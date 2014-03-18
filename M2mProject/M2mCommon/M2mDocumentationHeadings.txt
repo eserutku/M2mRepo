@@ -10,7 +10,8 @@ Model:
 Dao:
 - jpaConfiguration.xml persistenceUnitName
 - persistence.xml persistence-unit
-- M2M_VERSION table as it has no corresponding domain model object
+- M2M_VERSION table in CreateData.sql as it has no corresponding domain model object
+- Insert statements in InsertData.sql
 
 
 Things to describe in documentation

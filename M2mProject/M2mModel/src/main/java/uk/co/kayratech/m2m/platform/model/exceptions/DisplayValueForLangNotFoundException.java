@@ -1,9 +1,9 @@
 package uk.co.kayratech.m2m.platform.model.exceptions;
 
 import uk.co.kayratech.m2m.platform.common.exceptions.M2MSystemException;
-import uk.co.kayratech.m2m.platform.model.lov.Language;
 import uk.co.kayratech.m2m.platform.model.lov.LovType;
 import uk.co.kayratech.m2m.platform.model.lov.LovValue;
+import uk.co.kayratech.m2m.platform.model.lov.enums.Language;
 
 public class DisplayValueForLangNotFoundException extends M2MSystemException {
 

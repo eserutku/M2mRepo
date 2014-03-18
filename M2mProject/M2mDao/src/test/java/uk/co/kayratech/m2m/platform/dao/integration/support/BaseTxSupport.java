@@ -1,7 +1,9 @@
-package uk.co.kayratech.m2m.platform.dao.impl;
+package uk.co.kayratech.m2m.platform.dao.integration.support;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import uk.co.kayratech.m2m.platform.model.BaseEntity;
@@ -14,5 +16,7 @@ public interface BaseTxSupport<T extends BaseEntity> {
 
 	List<Number> getRevisionsForObject(Class<T> clazz, String primaryKey);
 	
-	public void deleteAllTableData();
+	void deleteAll();
+
+	Page<T> findAll(Pageable page);
 }

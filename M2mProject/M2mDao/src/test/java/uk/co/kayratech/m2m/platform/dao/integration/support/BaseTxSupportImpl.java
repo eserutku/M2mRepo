@@ -1,14 +1,14 @@
-package uk.co.kayratech.m2m.platform.dao.impl;
+package uk.co.kayratech.m2m.platform.dao.integration.support;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import uk.co.kayratech.m2m.platform.dao.BaseDao;
-import uk.co.kayratech.m2m.platform.dao.UserDao;
 import uk.co.kayratech.m2m.platform.model.BaseEntity;
 
 @Repository
@@ -16,29 +16,10 @@ import uk.co.kayratech.m2m.platform.model.BaseEntity;
 //public abstract class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T> {
 public class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T> {
 
-//	@PersistenceContext
-//	private EntityManager em;
-	
-	@Autowired
-	private UserDao userDao;
-	
 	private BaseDao<T, String> dao;
-	
+
 	public BaseTxSupportImpl() {
-//		super();
-	}
-
-	public BaseTxSupportImpl(BaseDao<T, String> dao) {
-		this.dao = dao;
-	}
-
-	@Override
-	public void deleteAllTableData() {
-//		String baseHql = "DELETE FROM ";
-//		
-//		String deleteUsers = baseHql + User.class.getSimpleName();
-//		em.createQuery(deleteUsers).executeUpdate();
-		userDao.deleteAllInBatch();
+		
 	}
 
 	@Override
@@ -54,5 +35,23 @@ public class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T>
 	@Override
 	public void delete(T objectToDelete) {
 		dao.delete(objectToDelete);
+	}
+	
+	@Override
+	public void deleteAll() {
+		dao.deleteAll();
+	}
+	
+	@Override
+	public Page<T> findAll(Pageable page) {
+		return dao.findAll(page);
+	}
+
+	public BaseDao<T, String> getDao() {
+		return dao;
+	}
+
+	public void setDao(BaseDao<T, String> dao) {
+		this.dao = dao;
 	}
 }

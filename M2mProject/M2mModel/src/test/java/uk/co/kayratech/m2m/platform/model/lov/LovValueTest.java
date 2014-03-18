@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import uk.co.kayratech.m2m.platform.model.M2mModelBaseTest;
 import uk.co.kayratech.m2m.platform.model.exceptions.DisplayValueForLangNotFoundException;
+import uk.co.kayratech.m2m.platform.model.lov.enums.Language;
 
 public class LovValueTest extends M2mModelBaseTest {
 

@@ -10,32 +10,25 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import uk.co.kayratech.m2m.platform.dao.UserDao;
+import uk.co.kayratech.m2m.platform.dao.integration.support.UserTxSupport;
 import uk.co.kayratech.m2m.platform.model.User;
 import uk.co.kayratech.m2m.platform.model.support.UserSupport;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/META-INF/spring/applicationConfiguration.xml" })
 public class UserDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 
 	@Autowired
 	private UserDao classUnderTest;
 	@Autowired
-	private UserSupport support = new UserSupport();
+	private UserSupport support;
 	@Autowired
 	private UserTxSupport txSupport;
 	
 	@Before
 	public void before()
 	{
-		// TODO: Create a method, probably in support classes, to clean the DB
-//		txSupport = new UserTxSupportImpl(classUnderTest);
-		classUnderTest.deleteAll();
 	}
 	
 	@Test

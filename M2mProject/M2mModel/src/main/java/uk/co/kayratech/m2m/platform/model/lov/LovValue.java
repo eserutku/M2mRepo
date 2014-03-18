@@ -25,6 +25,7 @@ import uk.co.kayratech.m2m.platform.common.context.BaseContext;
 import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
 import uk.co.kayratech.m2m.platform.model.BaseEntity;
 import uk.co.kayratech.m2m.platform.model.exceptions.DisplayValueForLangNotFoundException;
+import uk.co.kayratech.m2m.platform.model.lov.enums.Language;
 
 @Entity
 @Table(name = "M2M_LOV_VALUE")

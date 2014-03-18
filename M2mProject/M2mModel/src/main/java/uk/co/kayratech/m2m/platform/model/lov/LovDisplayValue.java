@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import uk.co.kayratech.m2m.platform.model.BaseEntity;
+import uk.co.kayratech.m2m.platform.model.lov.enums.Language;
 
 @Entity
 @Table(name = "M2M_LOV_DISPLAY_VALUE")

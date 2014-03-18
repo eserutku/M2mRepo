@@ -1,4 +1,4 @@
-package uk.co.kayratech.m2m.platform.model.lov;
+package uk.co.kayratech.m2m.platform.model.lov.enums;
 
 import java.util.Locale;
 

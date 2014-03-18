@@ -1,6 +1,6 @@
 package uk.co.kayratech.m2m.platform.dao.integration;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.AfterClass;
