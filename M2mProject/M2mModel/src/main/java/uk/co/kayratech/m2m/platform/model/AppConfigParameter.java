@@ -17,6 +17,9 @@ public class AppConfigParameter extends BaseEntity {
 	private String paramValue;
 	private String description;
 	
+	public AppConfigParameter() {
+	}
+	
 	@Override
 	protected StringBuffer buildStringRepresentation() {
 		StringBuffer sb = new StringBuffer();

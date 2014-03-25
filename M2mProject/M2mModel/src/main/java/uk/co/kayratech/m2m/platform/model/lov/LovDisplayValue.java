@@ -27,6 +27,9 @@ public class LovDisplayValue extends BaseEntity implements Serializable {
 	private String displayValue;
 	private Language language;
 	
+	public LovDisplayValue() {
+	}
+	
 	@Override
 	protected StringBuffer buildStringRepresentation() {
 		StringBuffer sb = new StringBuffer();

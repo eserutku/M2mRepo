@@ -11,6 +11,8 @@
 		<class>uk.co.kayratech.m2m.platform.model.lov.LovValue</class>
 		<class>uk.co.kayratech.m2m.platform.model.lov.LovDisplayValue</class>
 		<class>uk.co.kayratech.m2m.platform.model.audit.AuditRevisionEntity</class>
+		<class>uk.co.kayratech.m2m.platform.model.lov.UserType</class>
+		<class>uk.co.kayratech.m2m.platform.model.lov.AuthenticationStatus</class>
 		
 		<properties>
 			<!-- Auditing properties Start -->

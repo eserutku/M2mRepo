@@ -11,10 +11,10 @@ import uk.co.kayratech.m2m.platform.model.lov.LovValue;
 @NoAutoLogging
 public class LovTypeDaoImpl implements LovTypeCustomDao {
 
-	@Override
-	public <T extends LovType> List<T> findLovTypeByLovValue(LovValue omLovName)
-			throws M2MBusinessException {
-		// TODO Implement the method
-		return null;
-	}
+//	@Override
+//	public <T extends LovType> List<T> findLovTypeByLovValue(LovValue omLovName)
+//			throws M2MBusinessException {
+//		// TODO Implement the method
+//		return null;
+//	}
 }

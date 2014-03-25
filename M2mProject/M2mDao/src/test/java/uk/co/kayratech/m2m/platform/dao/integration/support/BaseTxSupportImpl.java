@@ -2,6 +2,9 @@ package uk.co.kayratech.m2m.platform.dao.integration.support;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -16,6 +19,9 @@ import uk.co.kayratech.m2m.platform.model.BaseEntity;
 //public abstract class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T> {
 public class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T> {
 
+	@PersistenceContext
+	private EntityManager em;
+	
 	private BaseDao<T, String> dao;
 
 	public BaseTxSupportImpl() {
@@ -53,5 +59,9 @@ public class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T>
 
 	public void setDao(BaseDao<T, String> dao) {
 		this.dao = dao;
+	}
+	
+	protected EntityManager getEm() {
+		return em;
 	}
 }

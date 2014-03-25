@@ -8,6 +8,6 @@ import uk.co.kayratech.m2m.platform.model.lov.LovValue;
 
 public interface LovTypeCustomDao {
 
-	public <T extends LovType> List<T> findLovTypeByLovValue(LovValue lovaValue)
-			throws M2MBusinessException;
+//	public <T extends LovType> List<T> findLovTypeByLovValue(LovValue lovValue)
+//			throws M2MBusinessException;
 }

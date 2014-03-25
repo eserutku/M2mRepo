@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-
 import uk.co.kayratech.m2m.platform.model.BaseEntity;
 
 @Entity
@@ -25,11 +23,13 @@ public class LovType extends BaseEntity {
 
 	private String lovType;
 	private String description;
-	private Boolean frozen;
 	private LovType parentLovType;
 	private Set<LovType> children;
 	private Set<LovValue> values;
 
+	public LovType() {
+	}
+	
 	@Override
 	protected StringBuffer buildStringRepresentation() {
 		StringBuffer sb = new StringBuffer();
@@ -63,16 +63,6 @@ public class LovType extends BaseEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "lovType")
 	public Set<LovValue> getValues() {
 		return values;
-	}
-
-	@Column(name = "FROZEN")
-	@Type(type = "true_false")
-	public Boolean getFrozen() {
-		return frozen;
-	}
-
-	public void setFrozen(Boolean frozen) {
-		this.frozen = frozen;
 	}
 
 	public void setValues(Set<LovValue> values) {

@@ -21,6 +21,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
+
 import uk.co.kayratech.m2m.platform.common.context.BaseContext;
 import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
 import uk.co.kayratech.m2m.platform.model.BaseEntity;
@@ -38,13 +40,17 @@ public abstract class LovValue extends BaseEntity implements Serializable {
 
 	private String lic; // Language Independent Code
 	private String displayValue;
-	private Language languageOfCurrentDisplayVal;
+	private Language langOfCurrentDisplayValue;
 	private LovValue parentLic;
 	private Set<LovValue> childLics;
 	private LovType lovType;
 	private LovStatus status;
+	private Boolean frozen;
 	private Set<LovDisplayValue> displayValues = new HashSet<LovDisplayValue>();
 
+	public LovValue() {
+	}
+	
 	@Override
 	protected StringBuffer buildStringRepresentation() {
 		StringBuffer sb = new StringBuffer();
@@ -85,6 +91,16 @@ public abstract class LovValue extends BaseEntity implements Serializable {
 	@Column(name = "STATUS")
 	public LovStatus getStatus() {
 		return status;
+	}
+	
+	@Column(name = "FROZEN")
+	@Type(type = "true_false")
+	public Boolean getFrozen() {
+		return frozen;
+	}
+
+	public void setFrozen(Boolean frozen) {
+		this.frozen = frozen;
 	}
 
 	public void setStatus(LovStatus status) {
@@ -144,14 +160,14 @@ public abstract class LovValue extends BaseEntity implements Serializable {
 		Language langInContext = Language
 				.getLanguageFromLocale(((BaseContext) InheritableThreadLocalContext.instance
 						.get()).getLocale());
-		return langInContext.equals(getLanguageOfCurrentDisplayVal());
+		return langInContext.equals(getLangOfCurrentDisplayValue());
 	}
 
 	@Transient
 	public String getDisplayValue() {
 		Language currentLanguage = null;
-		if (getLanguageOfCurrentDisplayVal() != null) {
-			currentLanguage = getLanguageOfCurrentDisplayVal();
+		if (getLangOfCurrentDisplayValue() != null) {
+			currentLanguage = getLangOfCurrentDisplayValue();
 		}
 		else {
 			currentLanguage = Language
@@ -161,7 +177,7 @@ public abstract class LovValue extends BaseEntity implements Serializable {
 		
 		if ( (displayValue == null) || languageHasChanged() ) {
 			setDisplayValue(findDisplayValueFromLanguage(currentLanguage));
-			setLanguageOfCurrentDisplayVal(currentLanguage);
+			setLangOfCurrentDisplayValue(currentLanguage);
 		}
 		return displayValue;
 	}
@@ -170,13 +186,13 @@ public abstract class LovValue extends BaseEntity implements Serializable {
 		this.displayValue = displayValue;
 	}
 
-	public void setLanguageOfCurrentDisplayVal(Language language) {
-		this.languageOfCurrentDisplayVal = language;
+	@Transient
+	public Language getLangOfCurrentDisplayValue() {
+		return langOfCurrentDisplayValue;
 	}
 
-	@Transient
-	public Language getLanguageOfCurrentDisplayVal() {
-		return languageOfCurrentDisplayVal;
+	public void setLangOfCurrentDisplayValue(Language langOfCurrentDisplayValue) {
+		this.langOfCurrentDisplayValue = langOfCurrentDisplayValue;
 	}
 
 }
