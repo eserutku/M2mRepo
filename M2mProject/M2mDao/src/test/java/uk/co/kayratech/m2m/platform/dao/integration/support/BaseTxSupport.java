@@ -19,4 +19,6 @@ public interface BaseTxSupport<T extends BaseEntity> {
 	void deleteAll();
 
 	Page<T> findAll(Pageable page);
+	
+	public T getPopulatedInstanceToBeSaved(Class<T> clazz);
 }

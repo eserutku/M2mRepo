@@ -49,7 +49,8 @@ public class LovTypeDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 		
 		assertNotNull(lovTypes);
 		assertTrue(lovTypes.size() == 1);
-		assertTrue(lovTypes.get(0).getChildren().equals(AuthenticationStatus.class));
+		assertEquals(AuthenticationStatus.class.getSimpleName(), lovTypes.get(0).getLovType());
+		assertTrue(lovTypes.get(0).getValues().iterator().next().getClass().equals(AuthenticationStatus.class));
 	}
 
 }

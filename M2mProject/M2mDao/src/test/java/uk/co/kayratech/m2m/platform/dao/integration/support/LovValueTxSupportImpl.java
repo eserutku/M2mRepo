@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import uk.co.kayratech.m2m.platform.dao.LovValueDao;
 import uk.co.kayratech.m2m.platform.model.lov.LovValue;
+import uk.co.kayratech.m2m.platform.model.support.LovValueSupport;
 
 @Component
 @Transactional(propagation = Propagation.REQUIRED)
@@ -19,10 +20,13 @@ public class LovValueTxSupportImpl extends BaseTxSupportImpl<LovValue> implement
 	
 	@Autowired
 	private LovValueDao dao;
+	@Autowired
+	private LovValueSupport support;
 	
 	@PostConstruct
 	public void postConstruct() {
 		super.setDao(dao);
+		super.setSupport(support);
 	}
 
 	@Override

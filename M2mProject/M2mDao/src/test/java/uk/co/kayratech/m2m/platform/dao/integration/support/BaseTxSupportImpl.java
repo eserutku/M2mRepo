@@ -11,18 +11,20 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import uk.co.kayratech.m2m.platform.common.exceptions.M2MSystemException;
 import uk.co.kayratech.m2m.platform.dao.BaseDao;
 import uk.co.kayratech.m2m.platform.model.BaseEntity;
+import uk.co.kayratech.m2m.platform.model.support.BaseSupport;
 
 @Repository
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-//public abstract class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T> {
 public class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T> {
 
 	@PersistenceContext
 	private EntityManager em;
 	
 	private BaseDao<T, String> dao;
+	private BaseSupport<T> support;
 
 	public BaseTxSupportImpl() {
 		
@@ -52,15 +54,37 @@ public class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T>
 	public Page<T> findAll(Pageable page) {
 		return dao.findAll(page);
 	}
+	
+	public T getPopulatedInstanceToBeSaved(Class<T> clazz) {
+		try {
+			T objectToReturn = clazz.newInstance();
+			support.populateObjectToBeSaved(objectToReturn);
+			return objectToReturn;
+		}
+		catch (InstantiationException | IllegalAccessException e) {
+			M2MSystemException sysEx = new M2MSystemException(
+					"Exception received when instantiating class " + clazz.getSimpleName());
+			sysEx.setStackTrace(e.getStackTrace());
+			throw sysEx;
+		}
+	}
 
-	public BaseDao<T, String> getDao() {
+	protected BaseDao<T, String> getDao() {
 		return dao;
 	}
 
-	public void setDao(BaseDao<T, String> dao) {
+	protected void setDao(BaseDao<T, String> dao) {
 		this.dao = dao;
 	}
-	
+
+	protected BaseSupport<T> getSupport() {
+		return support;
+	}
+
+	protected void setSupport(BaseSupport<T> support) {
+		this.support = support;
+	}
+
 	protected EntityManager getEm() {
 		return em;
 	}

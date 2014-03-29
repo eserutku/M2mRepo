@@ -9,8 +9,7 @@ import uk.co.kayratech.m2m.platform.model.lov.UserType;
 public class UserSupport extends BaseSupport<User> {
 	
 	@Override
-	public void populateObjectToBeSaved(User user) {
-		populateBaseEntityToSave(user);
+	public void populateObject(User user) {
 		user.setUsername("username");
 		UserType userType = new UserType();
 		userType.setLic("STANDARD");

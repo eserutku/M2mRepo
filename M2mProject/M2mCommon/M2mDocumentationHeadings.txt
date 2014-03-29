@@ -15,6 +15,16 @@ Dao:
 
 
 Things to describe in documentation
+Eclipse Setup:
+- Ensuring conf folder is in build path
+- Plugins required
+- Plugin setups
+	- FileSync to sync files from all_resources/local folder to destinations in M2mDao
+		- Spring xml files in spring/local folder to META-INF/spring
+		- persistence/local/persistence.xml to META-INF
+		- application.properties and logback.xml under properties/local to conf
+		
+
 Common:
 - General description
 - i18n
@@ -25,6 +35,7 @@ Model
 - General description
 - Object validation
 - Lov data structure
+- Use of getPopulatedInstance in BaseSupport to get dummy objects and explanation of how use of this rather than getPopulatedInstanceToBeSaved in dao level would result in transient sub objects that would fail integration tests - i.e. use this in unit tests only
 
 Dao
 
@@ -33,3 +44,7 @@ Dao
 - Location of all resources
 	- How resources are copied to right dirs upon build (FileSync Eclipse plugin)
 	- Building for different environments
+- Use of AllTests to run all related tests
+- Use of XXXTxSupport for getting objects from DB in order to initialise objects in test and by passing the Mandatory propagation of Dao level for tests by having Required Tx annotation on the base of these classes
+	- Also the use of getPopulatedInstanceToBeSaved in BaseTxSupport to initialise sub objects with actual objects from DB
+- Purpose of integration id, its immutability, how immutability provides portability and the fact that it could be same as tech key but it doesn't have to be

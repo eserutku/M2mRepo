@@ -62,7 +62,7 @@ public class LovDisplayValue extends BaseEntity implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "LIC_ROW_ID")
+	@JoinColumn(name = "LIC_TECH_KEY")
 	public LovValue getLovValue() {
 		return lovValue;
 	}

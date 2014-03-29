@@ -6,5 +6,7 @@ import uk.co.kayratech.m2m.platform.model.lov.LovType;
 import uk.co.kayratech.m2m.platform.model.lov.LovValue;
 
 public interface LovValueDao extends BaseDao<LovValue, String>, LovValueCustomDao {
-	public <T extends LovType> List<T> findLovTypeByFrozen(boolean frozen);
+	public <T extends LovValue> List<T> findLovTypeByFrozen(boolean frozen);
+	
+	public <T extends LovValue> List<T> findLovValueByLovTypeAndLic(LovType lovType, String lic);
 }

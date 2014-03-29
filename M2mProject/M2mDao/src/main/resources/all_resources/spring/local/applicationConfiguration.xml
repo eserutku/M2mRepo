@@ -12,7 +12,7 @@
 
 	<context:property-placeholder
 		ignore-resource-not-found="true"
-		location="classpath:/META-INF/application.properties,file:application.properties" />
+		location="classpath:application.properties,file:/conf/application.properties" />
 
 	<context:annotation-config />
 	<context:component-scan base-package="uk.co.kayratech.m2m.platform">
