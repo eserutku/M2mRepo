@@ -18,6 +18,6 @@
 	<context:component-scan base-package="uk.co.kayratech.m2m.platform">
 	</context:component-scan>
 
-	<import resource="classpath:/META-INF/spring/jpaConfiguration.xml" />
+	<import resource="classpath:/META-INF/spring/m2mDaoJpaContext.xml" />
 
 </beans>

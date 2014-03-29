@@ -2,6 +2,7 @@ Dependencies on M2M
 
 Changes to be made for other projects
 All package names
+All Spring configuration files
 Common:
 - uk.co.kayratech.m2m.platform.common.exceptions M2MBusinessException
 Model:
@@ -19,7 +20,11 @@ Eclipse Setup:
 - Ensuring conf folder is in build path
 - Plugins required
 - Plugin setups
-	- FileSync to sync files from all_resources/local folder to destinations in M2mDao
+	- FileSync to sync files from all_resources/*/local folder to destinations:
+	In M2mCommon
+		- Message files from i18n/local to conf/i18n
+		- Spring files from spring/local to META-INF/spring
+	In M2mDao
 		- Spring xml files in spring/local folder to META-INF/spring
 		- persistence/local/persistence.xml to META-INF
 		- application.properties and logback.xml under properties/local to conf

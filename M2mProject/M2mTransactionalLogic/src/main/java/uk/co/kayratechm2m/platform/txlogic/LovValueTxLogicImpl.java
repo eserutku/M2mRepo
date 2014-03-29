@@ -12,9 +12,12 @@ public class LovValueTxLogicImpl<T extends LovValue> extends BaseTxLogicImpl<Lov
 
 	@Autowired
 	private LovValueDao lovValueDao;
+	
 	@Override
 	public List<LovValue> getAllLovValues() {
+		logger.info("Getting all LovValue objects");
 		List<LovValue> allLovValues = lovValueDao.findAll();
+		logger.info("Returning " + allLovValues.size() + " objects");
 		return allLovValues;
 	}
 
