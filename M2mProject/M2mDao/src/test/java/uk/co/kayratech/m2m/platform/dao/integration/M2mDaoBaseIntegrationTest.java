@@ -8,12 +8,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
 import uk.co.kayratech.m2m.platform.dao.integration.support.UserTxSupport;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/META-INF/spring/applicationConfiguration.xml" })
+@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class M2mDaoBaseIntegrationTest {
 
 	@Autowired
