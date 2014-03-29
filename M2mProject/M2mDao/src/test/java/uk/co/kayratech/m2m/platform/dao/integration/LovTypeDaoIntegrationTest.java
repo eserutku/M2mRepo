@@ -43,9 +43,6 @@ public class LovTypeDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 
 	@Test
 	public void testFindLovTypeByLovValue() throws M2MBusinessException {
-		
-		// TODO: New Transactional annotation with rollbackFor = Exception
-		
 		LovValue lovValue = lovValueTxSupport.findAny(AuthenticationStatus.class);
 		
 		List<LovType> lovTypes = classUnderTest.findLovTypeByValues(lovValue);
