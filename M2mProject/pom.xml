@@ -29,6 +29,11 @@
 	</repositories>
 	<dependencies>
 		<dependency>
+			<groupId>uk.co.kayratech.libs</groupId>
+			<artifactId>aoplib</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${slf4j_version}</version>
@@ -42,6 +47,12 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
 			<version>${logback_version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit_version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>

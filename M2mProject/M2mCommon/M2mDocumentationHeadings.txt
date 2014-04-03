@@ -13,6 +13,9 @@ Dao:
 - persistence.xml persistence-unit
 - M2M_VERSION table in CreateData.sql as it has no corresponding domain model object
 - Insert statements in InsertData.sql
+- M2mDaoBaseIntegrationTest class
+TxLogic
+- M2mTxLogicBaseIntegrationTest class
 
 
 Things to describe in documentation
