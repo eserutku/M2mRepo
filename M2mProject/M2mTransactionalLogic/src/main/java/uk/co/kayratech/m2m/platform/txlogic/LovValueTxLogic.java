@@ -1,4 +1,4 @@
-package uk.co.kayratechm2m.platform.txlogic;
+package uk.co.kayratech.m2m.platform.txlogic;
 
 import java.util.List;
 

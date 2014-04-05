@@ -8,14 +8,19 @@ Common:
 Model:
 - M2mModelBaseTest class
 - All table names for domain model objects under model package
+- Import statement in spring xml
 Dao:
 - jpaConfiguration.xml persistenceUnitName
 - persistence.xml persistence-unit
 - M2M_VERSION table in CreateData.sql as it has no corresponding domain model object
 - Insert statements in InsertData.sql
 - M2mDaoBaseIntegrationTest class
+- Import statement in spring xml
+- Context component scan declaration in Spring xml
 TxLogic
 - M2mTxLogicBaseIntegrationTest class
+- Import statement in spring xml
+- Context component scan declaration in Spring xml
 
 
 Things to describe in documentation
@@ -27,10 +32,14 @@ Eclipse Setup:
 	In M2mCommon
 		- Message files from i18n/local to conf/i18n
 		- Spring files from spring/local to META-INF/spring
+	In M2mModel
+		- Spring xml files in spring/local folder to META-INF/spring
 	In M2mDao
 		- Spring xml files in spring/local folder to META-INF/spring
 		- persistence/local/persistence.xml to META-INF
 		- application.properties and logback.xml under properties/local to conf
+- Enabling annotation processing for M2mModel project's Properties -> Java Compiler -> Annotation Processing
+- Entities must be declared in persistence.xml for metamodel generation
 		
 
 Common:

@@ -15,7 +15,7 @@ import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext
 import uk.co.kayratech.m2m.platform.dao.integration.support.UserTxSupport;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/META-INF/spring/applicationConfiguration.xml" })
+@ContextConfiguration(locations = { "/META-INF/spring/m2mDaoAppContext.xml" })
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class M2mDaoBaseIntegrationTest {
 

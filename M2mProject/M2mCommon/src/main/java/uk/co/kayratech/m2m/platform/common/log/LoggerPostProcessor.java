@@ -26,9 +26,8 @@ public class LoggerPostProcessor implements BeanPostProcessor {
 
 				ReflectionUtils.makeAccessible(field);
 
-				//Check if the field is annoted with @Log
+				//Check if the field is annotated with @InjectLogger
 				if (field.getAnnotation(InjectLogger.class) != null) {
-					//					Logger logAnnotation = field.getAnnotation(Logger.class);
 					Logger logger = LoggerFactory.getLogger(bean.getClass());
 					field.set(bean, logger);
 				}

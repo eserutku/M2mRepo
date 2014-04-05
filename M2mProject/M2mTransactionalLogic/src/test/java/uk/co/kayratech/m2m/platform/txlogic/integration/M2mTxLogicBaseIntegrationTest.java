@@ -1,4 +1,4 @@
-package uk.co.kayratechm2m.platform.txlogic.integration;
+package uk.co.kayratech.m2m.platform.txlogic.integration;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/META-INF/spring/applicationConfiguration.xml" })
+@ContextConfiguration(locations = { "/META-INF/spring/m2mTxLogicAppContext.xml" })
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class M2mTxLogicBaseIntegrationTest {
 
