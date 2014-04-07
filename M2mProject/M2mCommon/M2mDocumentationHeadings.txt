@@ -40,6 +40,7 @@ Eclipse Setup:
 		- application.properties and logback.xml under properties/local to conf
 - Enabling annotation processing for M2mModel project's Properties -> Java Compiler -> Annotation Processing
 - Entities must be declared in persistence.xml for metamodel generation
+- target/generated-sources/annotations folder should be made a source folder. Otherwise after metamodel generation you will get compile errors with annotations folder being considered by Eclipse to be part of the package declaration (i.e. Eclipse will assume target/generated-sources to be source folder)
 		
 
 Common:
