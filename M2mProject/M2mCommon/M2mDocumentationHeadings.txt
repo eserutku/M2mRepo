@@ -9,6 +9,7 @@ Model:
 - M2mModelBaseTest class
 - All table names for domain model objects under model package
 - Import statement in spring xml
+- Application properties file and its declaration in spring app context
 Dao:
 - jpaConfiguration.xml persistenceUnitName
 - persistence.xml persistence-unit

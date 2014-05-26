@@ -54,6 +54,18 @@
 			<version>${junit_version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- This dependency must be added because the Hibernate JpaModelGen plugin 
+			below does not include this lib in classpath after maven clean is executed. 
+			Subsequent maven install fails with "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor 
+			not found". This can be replicated by commenting out this library and doing 
+			maven clean + install -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>${hibernate_version}</version>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
