@@ -26,10 +26,10 @@ public abstract class BaseSupport<T extends BaseEntity> {
 
 	public static void populateBaseEntitySystemFields(BaseEntity baseEntity) {
 		baseEntity.setTechnicalId(UUID.randomUUID().toString());
-		baseEntity.setCreated(new DateTime());
+		baseEntity.setCreatedDate(new DateTime());
 		baseEntity.setCreatedBy("SYS_TEST");
-		baseEntity.setLastUpdate(new DateTime());
-		baseEntity.setLastUpdateBy("SYS_TEST");
+		baseEntity.setLastModifiedDate(new DateTime());
+		baseEntity.setLastModifiedBy("SYS_TEST");
 		baseEntity.setModificationNo(0);
 	}
 

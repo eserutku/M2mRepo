@@ -18,47 +18,44 @@ import uk.co.kayratech.m2m.platform.model.support.BaseSupport;
 
 @Repository
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-public class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T> {
+public abstract class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T> {
 
 	@PersistenceContext
 	private EntityManager em;
 	
-	private BaseDao<T, String> dao;
-	private BaseSupport<T> support;
-
 	public BaseTxSupportImpl() {
 		
 	}
 
 	@Override
 	public T save(T objectToSave) {
-		return dao.save(objectToSave);
+		return getDao().save(objectToSave);
 	}
 
 	@Override
 	public List<Number> getRevisionsForObject(Class<T> clazz, String primaryKey) {
-		return dao.getRevisionsForObject(clazz, primaryKey);
+		return getDao().getRevisionsForObject(clazz, primaryKey);
 	}
 
 	@Override
 	public void delete(T objectToDelete) {
-		dao.delete(objectToDelete);
+		getDao().delete(objectToDelete);
 	}
 	
 	@Override
 	public void deleteAll() {
-		dao.deleteAll();
+		getDao().deleteAll();
 	}
 	
 	@Override
 	public Page<T> findAll(Pageable page) {
-		return dao.findAll(page);
+		return getDao().findAll(page);
 	}
 	
 	public T getPopulatedInstanceToBeSaved(Class<T> clazz) {
 		try {
 			T objectToReturn = clazz.newInstance();
-			support.populateObjectToBeSaved(objectToReturn);
+			getSupport().populateObjectToBeSaved(objectToReturn);
 			return objectToReturn;
 		}
 		catch (InstantiationException | IllegalAccessException e) {
@@ -69,21 +66,9 @@ public class BaseTxSupportImpl<T extends BaseEntity> implements BaseTxSupport<T>
 		}
 	}
 
-	protected BaseDao<T, String> getDao() {
-		return dao;
-	}
-
-	protected void setDao(BaseDao<T, String> dao) {
-		this.dao = dao;
-	}
-
-	protected BaseSupport<T> getSupport() {
-		return support;
-	}
-
-	protected void setSupport(BaseSupport<T> support) {
-		this.support = support;
-	}
+	// Used in setting the dao and support objects in Base Support class implementation
+	protected abstract BaseDao<T, String> getDao();
+	protected abstract BaseSupport<T> getSupport();
 
 	protected EntityManager getEm() {
 		return em;

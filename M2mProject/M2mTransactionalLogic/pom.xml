@@ -10,11 +10,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>co.uk.kayratech.m2m</groupId>
-			<artifactId>M2mModel</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>co.uk.kayratech.m2m</groupId>
 			<artifactId>M2mDao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

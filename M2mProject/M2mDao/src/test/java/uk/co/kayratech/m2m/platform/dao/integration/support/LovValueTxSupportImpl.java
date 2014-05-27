@@ -2,7 +2,6 @@ package uk.co.kayratech.m2m.platform.dao.integration.support;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import uk.co.kayratech.m2m.platform.dao.BaseDao;
 import uk.co.kayratech.m2m.platform.dao.LovValueDao;
 import uk.co.kayratech.m2m.platform.model.lov.LovValue;
+import uk.co.kayratech.m2m.platform.model.support.BaseSupport;
 import uk.co.kayratech.m2m.platform.model.support.LovValueSupport;
 
 @Component
@@ -22,12 +23,6 @@ public class LovValueTxSupportImpl extends BaseTxSupportImpl<LovValue> implement
 	private LovValueDao dao;
 	@Autowired
 	private LovValueSupport support;
-	
-	@PostConstruct
-	public void postConstruct() {
-		super.setDao(dao);
-		super.setSupport(support);
-	}
 
 	@Override
 	public LovValue findAny(Class<? extends LovValue> lovValueClass) {
@@ -41,5 +36,15 @@ public class LovValueTxSupportImpl extends BaseTxSupportImpl<LovValue> implement
 		assert(values.size() > 0);
 		
 		return values.get(0);
+	}
+	
+	@Override
+	protected BaseDao<LovValue, String> getDao() {
+		return dao;
+	}
+
+	@Override
+	protected BaseSupport<LovValue> getSupport() {
+		return support;
 	}
 }

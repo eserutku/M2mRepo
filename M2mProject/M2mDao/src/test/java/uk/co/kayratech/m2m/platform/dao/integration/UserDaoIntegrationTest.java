@@ -32,17 +32,17 @@ public class UserDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 	@Test
 	public void testPersistingUserPopulatesCreatedAndLastUpdateFields() {
 		User user = txSupport.getPopulatedInstanceToBeSaved(User.class);
-		assertNull(user.getCreated());
+		assertNull(user.getCreatedDate());
 		assertNull(user.getCreatedBy());
-		assertNull(user.getLastUpdate());
-		assertNull(user.getLastUpdateBy());
+		assertNull(user.getLastModifiedDate());
+		assertNull(user.getLastModifiedBy());
 
 		classUnderTest.save(user);
 
-		assertNotNull(user.getCreated());
+		assertNotNull(user.getCreatedDate());
 		assertNotNull(user.getCreatedBy());
-		assertNotNull(user.getLastUpdate());
-		assertNotNull(user.getLastUpdateBy());
+		assertNotNull(user.getLastModifiedDate());
+		assertNotNull(user.getLastModifiedBy());
 	}
 
 	@Test
@@ -52,15 +52,15 @@ public class UserDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 		User user = txSupport.getPopulatedInstanceToBeSaved(User.class);
 		classUnderTest.save(user);
 		
-		DateTime createAndUpdateDate = user.getLastUpdate();
+		DateTime createAndUpdateDate = user.getLastModifiedDate();
 		// Make sure new update date is later than current
 		Thread.sleep(1000);
 		user.setUsername(user.getUsername() + "2");
 
 		user = classUnderTest.save(user);
 
-		assertEquals(createAndUpdateDate, user.getCreated());
-		assertNotEquals(createAndUpdateDate, user.getLastUpdate());
+		assertEquals(createAndUpdateDate, user.getCreatedDate());
+		assertNotEquals(createAndUpdateDate, user.getLastModifiedDate());
 	}
 
 	@Test

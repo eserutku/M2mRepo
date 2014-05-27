@@ -22,7 +22,7 @@ public class TestLovValueTxLogic extends M2mTxLogicBaseIntegrationTest {
 	
 	@Test
 	public void testLovValuesCanBeRetrieved() {
-		List<LovValue> lovValues = classUnderTest.getAllLovValues();
+		List<LovValue> lovValues = classUnderTest.findAllLovValues();
 		
 		assertNotNull(lovValues);
 		assertTrue(lovValues.size() > 0);

@@ -22,23 +22,24 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.data.domain.Auditable;
 
 import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
 import uk.co.kayratech.m2m.platform.common.i18n.MessageProvider;
 import uk.co.kayratech.m2m.platform.model.constants.EntityConstraints;
 
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable, Auditable<String, String> {
 
 	private static final long serialVersionUID = 1L;
 
 	private static final String VALIDATION_MAX_SIZE_KEYWORD = "max";
 
 	private String technicalId;
-	private DateTime created;
+	private DateTime createdDate;
 	private String createdBy;
-	private DateTime lastUpdate;
-	private String lastUpdateBy;
+	private DateTime lastModifiedDate;
+	private String lastModifiedBy;
 	private int modificationNo;
 	private String integrationId;
 
@@ -54,14 +55,14 @@ public abstract class BaseEntity implements Serializable {
 		this.technicalId = technicalId;
 	}
 
-	@Column(name = "CREATED", nullable = false)
+	@Column(name = "CREATED_DATE", nullable = false)
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	public DateTime getCreated() {
-		return this.created;
+	public DateTime getCreatedDate() {
+		return this.createdDate;
 	}
 
-	public void setCreated(DateTime created) {
-		this.created = created;
+	public void setCreatedDate(DateTime createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	@Column(name = "CREATED_BY", nullable = false, length = 15)
@@ -73,23 +74,23 @@ public abstract class BaseEntity implements Serializable {
 		this.createdBy = createdBy;
 	}
 
-	@Column(name = "LAST_UPDATE", nullable = false)
+	@Column(name = "LAST_MODIFIED_DATE", nullable = false)
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	public DateTime getLastUpdate() {
-		return this.lastUpdate;
+	public DateTime getLastModifiedDate() {
+		return this.lastModifiedDate;
 	}
 
-	public void setLastUpdate(DateTime lastUpdate) {
-		this.lastUpdate = lastUpdate;
+	public void setLastModifiedDate(DateTime lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	@Column(name = "LAST_UPDATE_BY", nullable = false, length = 15)
-	public String getLastUpdateBy() {
-		return this.lastUpdateBy;
+	@Column(name = "LAST_MODIFIED_BY", nullable = false, length = 15)
+	public String getLastModifiedBy() {
+		return this.lastModifiedBy;
 	}
 
-	public void setLastUpdateBy(String lastUpdateBy) {
-		this.lastUpdateBy = lastUpdateBy;
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
 	}
 
 	@Version
@@ -180,19 +181,29 @@ public abstract class BaseEntity implements Serializable {
 
 	@PrePersist
 	public void prePersist() {
-		setCreated(new DateTime());
-		setLastUpdate(new DateTime());
+		setCreatedDate(new DateTime());
+		setLastModifiedDate(new DateTime());
 		// TODO: Use Spring security to get the principal here. Not thread local
 		String user = InheritableThreadLocalContext.instance.get().getUsername();
 		setCreatedBy(user);
-		setLastUpdateBy(user);
+		setLastModifiedBy(user);
 	}
 
 	@PreUpdate
 	public void preUpdate() {
-		setLastUpdate(new DateTime());
+		setLastModifiedDate(new DateTime());
 		// TODO: Use Spring security to get the principal here. Not thread local
 		String user = InheritableThreadLocalContext.instance.get().getUsername();
-		setLastUpdateBy(user);
+		setLastModifiedBy(user);
+	}
+
+	@Override
+	public String getId() {
+		return getTechnicalId();
+	}
+
+	@Override
+	public boolean isNew() {
+		return getId() == null? true : false;
 	}
 }

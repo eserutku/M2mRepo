@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.joda.time.DateTime;
+
 import uk.co.kayratech.m2m.platform.model.constants.EntityConstraints;
 
 @Entity

@@ -7,7 +7,29 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>M2mModel</artifactId>
+	<properties>
+		<spring.data.version>1.4.4.RELEASE</spring.data.version>
+	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${spring.data.version}</version>
+			<exclusions>
+				<!-- Spring ASM is in core as of 3.2. Spring data 1.4.4 imports earlier 
+					version in a dedicated jar giving an exception: java.lang.IncompatibleClassChangeError: 
+					class org.springframework.core.type.classreading.ClassMetadataReadingVisitor 
+					has interface org.springframework.asm.ClassVisitor as super class -->
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-asm</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>co.uk.kayratech.m2m</groupId>
 			<artifactId>M2mCommon</artifactId>

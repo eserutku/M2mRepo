@@ -18,10 +18,12 @@ Dao:
 - M2mDaoBaseIntegrationTest class
 - Import statement in spring xml
 - Context component scan declaration in Spring xml
+
 TxLogic
 - M2mTxLogicBaseIntegrationTest class
 - Import statement in spring xml
 - Context component scan declaration in Spring xml
+- Setting the dao in the BaseTxLogicImpl class
 
 
 Things to describe in documentation
@@ -67,3 +69,9 @@ Dao
 - Use of XXXTxSupport for getting objects from DB in order to initialise objects in test and by passing the Mandatory propagation of Dao level for tests by having Required Tx annotation on the base of these classes
 	- Also the use of getPopulatedInstanceToBeSaved in BaseTxSupport to initialise sub objects with actual objects from DB
 - Purpose of integration id, its immutability, how immutability provides portability and the fact that it could be same as tech key but it doesn't have to be
+- TxSupport classes in testing
+	- Use of support class in TxSupport
+	- Setting Dao and Support classes of BaseTxSupportImpl
+	
+TxLogic
+- Setting Dao in Base Tx class implementation using abstract getDao and similarity of this architecture to setting Dao and Support classes in Dao project's TxSupport Base class

@@ -1,12 +1,12 @@
 package uk.co.kayratech.m2m.platform.dao.integration.support;
 
-import static org.junit.Assert.*;
-
-import javax.annotation.PostConstruct;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import uk.co.kayratech.m2m.platform.dao.BaseDao;
 import uk.co.kayratech.m2m.platform.dao.LovTypeDao;
 import uk.co.kayratech.m2m.platform.dao.LovValueDao;
 import uk.co.kayratech.m2m.platform.dao.UserDao;
@@ -14,6 +14,7 @@ import uk.co.kayratech.m2m.platform.model.User;
 import uk.co.kayratech.m2m.platform.model.lov.LovType;
 import uk.co.kayratech.m2m.platform.model.lov.LovValue;
 import uk.co.kayratech.m2m.platform.model.lov.UserType;
+import uk.co.kayratech.m2m.platform.model.support.BaseSupport;
 import uk.co.kayratech.m2m.platform.model.support.UserSupport;
 
 @Component
@@ -27,12 +28,6 @@ public class UserTxSupportImpl extends BaseTxSupportImpl<User> implements UserTx
 	private LovValueDao lovValueDao;
 	@Autowired
 	private UserSupport support;
-
-	@PostConstruct
-	public void postConstruct() {
-		super.setDao(dao);
-		super.setSupport(support);
-	}
 	
 	@Override
 	public User getPopulatedInstanceToBeSaved(Class<User> clazz) {
@@ -49,5 +44,15 @@ public class UserTxSupportImpl extends BaseTxSupportImpl<User> implements UserTx
 		user.setUserType(userType);
 		
 		return user;
+	}
+
+	@Override
+	protected BaseDao<User, String> getDao() {
+		return dao;
+	}
+
+	@Override
+	protected BaseSupport<User> getSupport() {
+		return support;
 	}
 }

@@ -11,14 +11,9 @@ import uk.co.kayratech.m2m.platform.model.BaseEntity;
 @Repository
 public interface BaseTxSupport<T extends BaseEntity> {
 	T save(T objectToSave);
-
 	void delete(T objectToSave);
-
 	List<Number> getRevisionsForObject(Class<T> clazz, String primaryKey);
-	
 	void deleteAll();
-
 	Page<T> findAll(Pageable page);
-	
 	public T getPopulatedInstanceToBeSaved(Class<T> clazz);
 }
