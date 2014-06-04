@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -198,11 +199,13 @@ public abstract class BaseEntity implements Serializable, Auditable<String, Stri
 	}
 
 	@Override
+	@Transient
 	public String getId() {
 		return getTechnicalId();
 	}
 
 	@Override
+	@Transient
 	public boolean isNew() {
 		return getId() == null? true : false;
 	}

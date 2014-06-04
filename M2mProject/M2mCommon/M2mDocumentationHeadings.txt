@@ -72,6 +72,21 @@ Dao
 - TxSupport classes in testing
 	- Use of support class in TxSupport
 	- Setting Dao and Support classes of BaseTxSupportImpl
+- Use of Jasypt to encrypt user password
+	- Master key and MASTER_KEY env variable and unsetting it after app starts
+	- Checking for master key when app starts and option to set it then instead of as an env var
+	- Skipping this check - not advisable
 	
 TxLogic
 - Setting Dao in Base Tx class implementation using abstract getDao and similarity of this architecture to setting Dao and Support classes in Dao project's TxSupport Base class
+
+Deployment
+
+- The following environment variables must be set before app can start:
+	- MASTER_KEY -> Set this to Jasypt master key. Also describe the following related to this issue:
+		- Unset after app starts
+			- Describe the security implications of not unsetting this env variable if it is set before starting the app
+			- Alternatively, start app first and the app will ask for it
+		- This check can be avoided by disabling parameter (see property file for its name) in Common project's properties file
+	- APP_ENVIRONMENT -> Set this in every environment (TEST, PROD etc)
+		- Importance of this check and how it can be disabled from properties file of Common project

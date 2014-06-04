@@ -1,4 +1,2 @@
-- Run the create tables script then run insert script. Run tests to ensure everything is OK
-- Change the create script such that
-  - System columns for model objects come last in create table declarations
-  - Revision columns come last in audit table create declarations
+- Finish off the StartupControls in Common - still need to implement a way to get the master key in a given amount of time
+- Implement Jasypt encryption for user object's password field

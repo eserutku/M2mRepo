@@ -54,6 +54,18 @@
 			<version>${junit_version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring_version}</version>
+			<!-- Use logback instead of commons logging -->
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 		<!-- This dependency must be added because the Hibernate JpaModelGen plugin 
 			below does not include this lib in classpath after maven clean is executed. 
