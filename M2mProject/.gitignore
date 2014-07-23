@@ -9,5 +9,6 @@ tmp/
 *.swp
 *.launch
 */target
-*/all_resources/*/local
+*all_resources/*/local/*.xml
+*all_resources/*/local/*.properties
 .springBeans
