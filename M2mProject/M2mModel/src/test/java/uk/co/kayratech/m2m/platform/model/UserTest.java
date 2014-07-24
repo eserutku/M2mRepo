@@ -13,11 +13,12 @@ import org.junit.Test;
 
 import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
 import uk.co.kayratech.m2m.platform.common.i18n.MessageProvider;
-import uk.co.kayratech.m2m.platform.model.constants.EntityConstraints;
 import uk.co.kayratech.m2m.platform.model.support.UserSupport;
 
 public class UserTest extends M2mModelBaseTest {
 
+	private static final int INTEGRATION_ID_MAX_SIZE = 100;
+	
 	private static final Locale testLocale = Locale.ENGLISH;
 	
 	private UserSupport support = new UserSupport();
@@ -54,7 +55,7 @@ public class UserTest extends M2mModelBaseTest {
 	@Test
 	public void testIntegrationIdTooLongMessageWithMaxValueCanBeConstructed() {
 		StringBuffer longIntegrationId = new StringBuffer();
-		while (longIntegrationId.length() <= EntityConstraints.INTEGRATION_ID_MAX_SIZE) {
+		while (longIntegrationId.length() <= INTEGRATION_ID_MAX_SIZE) {
 			longIntegrationId.append(UUID.randomUUID().toString());
 		}
 		int integrationIdSize = longIntegrationId.length();
@@ -66,8 +67,8 @@ public class UserTest extends M2mModelBaseTest {
 		assertTrue(validationMsgs.size() == 1);
 
 		String expectedMsg = MessageProvider.getMessage(
-				EntityConstraints.INTEGRATION_ID_TOO_LONG_MSG_KEY, new Object[] {
-						EntityConstraints.INTEGRATION_ID_MAX_SIZE, integrationIdSize }, testLocale);
+				"integrationid.too.long", new Object[] {
+						INTEGRATION_ID_MAX_SIZE, integrationIdSize }, testLocale);
 		assertEquals(expectedMsg, validationMsgs.get(0));
 	}
 }
