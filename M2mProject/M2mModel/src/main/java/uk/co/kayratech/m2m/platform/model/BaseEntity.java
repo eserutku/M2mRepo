@@ -27,7 +27,6 @@ import org.springframework.data.domain.Auditable;
 
 import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
 import uk.co.kayratech.m2m.platform.common.i18n.MessageProvider;
-import uk.co.kayratech.m2m.platform.model.constants.EntityConstraints;
 
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable, Auditable<String, String> {
@@ -105,7 +104,7 @@ public abstract class BaseEntity implements Serializable, Auditable<String, Stri
 	}
 
 	@Column(name = "INTEGRATION_ID", nullable = false)
-	@Size(max = EntityConstraints.INTEGRATION_ID_MAX_SIZE, message = EntityConstraints.INTEGRATION_ID_TOO_LONG_MSG_KEY)
+	@Size(max = 100, message = "integrationid.too.long")
 	public String getIntegrationId() {
 		return integrationId;
 	}

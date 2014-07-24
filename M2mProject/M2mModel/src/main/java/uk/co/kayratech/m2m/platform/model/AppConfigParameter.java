@@ -5,10 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import org.joda.time.DateTime;
-
-import uk.co.kayratech.m2m.platform.model.constants.EntityConstraints;
-
 @Entity
 @Table(name = "M2M_APP_CONFIG")
 public class AppConfigParameter extends BaseEntity {
@@ -33,19 +29,19 @@ public class AppConfigParameter extends BaseEntity {
 	}
 
 	@Column(name = "PARAM_NAME", nullable = false)
-	@Size(max = 100, message = EntityConstraints.PARAM_NAME_TOO_LONG_MSG_KEY)
+	@Size(max = 100, message = "config.param.name.too.long")
 	public String getParamName() {
 		return paramName;
 	}
 
 	@Column(name = "PARAM_VALUE", nullable = false)
-	@Size(max = 100, message = EntityConstraints.PARAM_VALUE_TOO_LONG_MSG_KEY)
+	@Size(max = 100, message = "config.param.value.too.long")
 	public String getParamValue() {
 		return paramValue;
 	}
 
 	@Column(name = "DESCRIPTION", nullable = false)
-	@Size(max = 100, message = EntityConstraints.PARAM_VALUE_TOO_LONG_MSG_KEY)
+	@Size(max = 100, message = "config.description.too.long")
 	public String getDescription() {
 		return description;
 	}
