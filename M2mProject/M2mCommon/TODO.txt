@@ -1,2 +1,6 @@
-- Implement getting jasypt master pass from Startup obj rather than from properties file
 - Change file sync plugin settings to ignore README files
+- Check exceptions have a unique id and this id is printed to the logs
+- Implement get url encoded message to base exception
+- Implement AOP to get method execution times
+- Change the code in BaseEntity for validation: Check if size has a min defined and if so then include this in the message. Assign a min size to User's username and test
+- Add email to the User object and its regex validation
