@@ -10,6 +10,7 @@ Model:
 - All table names for domain model objects under model package
 - Import statement in spring xml
 - Application properties file and its declaration in spring app context
+
 Dao:
 - jpaConfiguration.xml persistenceUnitName
 - persistence.xml persistence-unit
@@ -48,7 +49,7 @@ Eclipse Setup:
 
 Common:
 - General description
-- i18n
+- i18n: Using the "message" values in javax validation annotations to fetch messages with i18n through MessageProvider
 - Context
 - Exception objects and exception handling
 
@@ -57,6 +58,7 @@ Model
 - Object validation
 - Lov data structure
 - Use of getPopulatedInstance in BaseSupport to get dummy objects and explanation of how use of this rather than getPopulatedInstanceToBeSaved in dao level would result in transient sub objects that would fail integration tests - i.e. use this in unit tests only
+- Password field in User and putting @TypeDef on class declaration as well as @Type on the getter
 
 Dao
 
@@ -72,10 +74,11 @@ Dao
 - TxSupport classes in testing
 	- Use of support class in TxSupport
 	- Setting Dao and Support classes of BaseTxSupportImpl
-- Use of Jasypt to encrypt user password
+- Use of Jasypt to encrypt two way encryption - a simple example
 	- Master key and MASTER_KEY env variable and unsetting it after app starts
 	- Checking for master key when app starts and option to set it then instead of as an env var
 	- Skipping this check - not advisable
+	- Why this is not suitable for password
 	
 TxLogic
 - Setting Dao in Base Tx class implementation using abstract getDao and similarity of this architecture to setting Dao and Support classes in Dao project's TxSupport Base class
