@@ -43,6 +43,8 @@ public class UserTxSupportImpl extends BaseTxSupportImpl<User> implements UserTx
 		UserType userType = (UserType)lovValue;
 		user.setUserType(userType);
 		
+		user.setTwoWayEncryptedData("dummyData");
+		
 		return user;
 	}
 

@@ -8,10 +8,10 @@ import uk.co.kayratech.m2m.platform.dao.UserDao;
 import uk.co.kayratech.m2m.platform.dao.integration.support.UserTxSupport;
 import uk.co.kayratech.m2m.platform.model.User;
 
-// Creates a user persisted in DB. User is NOT deleted at the end of the test
+// This NOT a JUnit test - creates a user persisted in DB. User is NOT deleted at the end of the test
 public class TwoWayEncryptionTest {
 
-	public void test() {
+	public void testTwoWayEncryptionIsPossible() {
 		InheritableThreadLocalContext.instance.get().setUsername("A_USER");
 		
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(
@@ -28,7 +28,7 @@ public class TwoWayEncryptionTest {
 
 	public static void main(String[] args) {
 		TwoWayEncryptionTest test = new TwoWayEncryptionTest();
-		test.test();
+		test.testTwoWayEncryptionIsPossible();
 	}
 
 }
