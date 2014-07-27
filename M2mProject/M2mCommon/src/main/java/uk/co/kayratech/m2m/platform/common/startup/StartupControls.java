@@ -137,7 +137,7 @@ public class StartupControls {
 					+ " is not found. Using default");
 			logger.warn("*************************************************");
 
-			SystemParameters.setMasterKey("m4st3rP4ssW0rd");
+			SystemParameters.setMasterKey("ev3ryth!ngInM0derat1on");
 		}
 
 		return errorMessages;

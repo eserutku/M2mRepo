@@ -21,6 +21,7 @@ import uk.co.kayratech.m2m.platform.model.lov.UserType;
 @Audited
 @Entity
 @Table(name = "M2M_USER")
+// Example setup for two way encryption
 @TypeDef(
         name="encryptedString", 
         typeClass=EncryptedStringType.class, 
@@ -32,7 +33,8 @@ public class User extends BaseEntity {
 	private static final long serialVersionUID = -5932873717409897470L;
 
 	private String username;
-	private String password;
+	// Example for two way encrypted data
+	private String twoWayEncryptedData;
 	private UserType userType;
 	
 	public User() {
@@ -59,12 +61,12 @@ public class User extends BaseEntity {
 	@Column(name = "PASSWORD", nullable = false)
 	@Size(max = 50, message = "password.too.long")
 	@Type(type="encryptedString")
-	public String getPassword() {
-		return password;
+	public String getTwoWayEncryptedData() {
+		return twoWayEncryptedData;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setTwoWayEncryptedData(String twoWayEncryptedData) {
+		this.twoWayEncryptedData = twoWayEncryptedData;
 	}
 
 	@Audited(targetAuditMode=RelationTargetAuditMode.NOT_AUDITED)
