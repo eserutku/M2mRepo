@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<security:global-method-security
+		pre-post-annotations="enabled" />
+	<security:authentication-manager alias="authenticationManager">
+	</security:authentication-manager>
+
+<!-- CHANGE VALUE TYPE AND ADD testAuthenticationProvider REF -->
+	<util:list id="authenticationProviderList" value-type="java.lang.String">
+		<value>foo</value>
+		<value>bar</value>
+	</util:list>
+
+	<bean id="authenticationManager"
+		class="org.springframework.security.authentication.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref local="testAuthenticationProvider" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

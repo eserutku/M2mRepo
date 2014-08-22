@@ -18,7 +18,7 @@ public class TestLovValueTxLogic extends M2mTxLogicBaseIntegrationTest {
 	@InjectLogger Logger logger;
 	
 	@Autowired
-	private LovValueTxLogic<LovValue> classUnderTest;
+	private LovValueTxLogic classUnderTest;
 	
 	@Test
 	public void testLovValuesCanBeRetrieved() {

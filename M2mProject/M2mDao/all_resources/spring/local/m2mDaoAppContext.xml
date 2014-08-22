@@ -12,8 +12,10 @@
 
 	<import resource="classpath:/META-INF/spring/m2mModelAppContext.xml" />
 
+	<!-- Need ignore-unresolvable as well to load multiple property files -->
 	<context:property-placeholder
 		ignore-resource-not-found="true"
+		ignore-unresolvable="true"
 		location="classpath:m2mDaoApplication.properties,file:/conf/m2mDaoApplication.properties" />
 
 	<context:annotation-config />

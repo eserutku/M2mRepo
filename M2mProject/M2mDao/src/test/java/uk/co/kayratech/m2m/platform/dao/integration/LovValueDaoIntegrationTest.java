@@ -1,6 +1,7 @@
 package uk.co.kayratech.m2m.platform.dao.integration;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,15 +13,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import uk.co.kayratech.m2m.platform.dao.LovValueDao;
-import uk.co.kayratech.m2m.platform.dao.integration.support.LovValueTxSupport;
 import uk.co.kayratech.m2m.platform.model.lov.LovValue;
 
 public class LovValueDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 
 	@Autowired
 	private LovValueDao classUnderTest;
-	@Autowired
-	private LovValueTxSupport txSupport;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

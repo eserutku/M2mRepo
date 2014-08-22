@@ -8,10 +8,31 @@
 	</parent>
 	<artifactId>M2mNonTransactionalApi</artifactId>
 	<dependencies>
+		<!-- LOCAL DEPENDENCIES -->
 		<dependency>
 			<groupId>co.uk.kayratech.m2m</groupId>
 			<artifactId>M2mTransactionalLogic</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- SECURITY -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>3.2.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>3.2.4.RELEASE</version>
+		</dependency>
+		
+		<!-- TEST -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring_version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

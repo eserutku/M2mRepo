@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -14,24 +15,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import uk.co.kayratech.m2m.platform.dao.AuditDao;
 import uk.co.kayratech.m2m.platform.dao.UserDao;
-import uk.co.kayratech.m2m.platform.dao.integration.support.UserTxSupport;
 import uk.co.kayratech.m2m.platform.model.User;
+import uk.co.kayratech.m2m.platform.model.factory.UserFactory;
 
 public class UserDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 
 	@Autowired
 	private UserDao classUnderTest;
 	@Autowired
-	private UserTxSupport txSupport;
-
+	private UserFactory txSupport;
+	@Autowired
+	private AuditDao<User, Serializable> auditDao;
+	
 	@Before
 	public void before() {
 	}
 
 	@Test
 	public void testPersistingUserPopulatesCreatedAndLastUpdateFields() {
-		User user = txSupport.getPopulatedInstanceToBeSaved(User.class);
+		User user = txSupport.getPopulatedInstanceWithSystemFields(User.class);
 		assertNull(user.getCreatedDate());
 		assertNull(user.getCreatedBy());
 		assertNull(user.getLastModifiedDate());
@@ -49,7 +53,7 @@ public class UserDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 	@Transactional(propagation = Propagation.NEVER)
 	public void testUpdatingUserPopulatesLastUpdateFieldsButNotCreatedFields()
 			throws InterruptedException {
-		User user = txSupport.getPopulatedInstanceToBeSaved(User.class);
+		User user = txSupport.getPopulatedInstanceWithSystemFields(User.class);
 		classUnderTest.save(user);
 		
 		DateTime createAndUpdateDate = user.getLastModifiedDate();
@@ -66,15 +70,15 @@ public class UserDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 	@Test
 	@Transactional(propagation = Propagation.NEVER)
 	public void testUserIsAudited() {
-		User user = txSupport.getPopulatedInstanceToBeSaved(User.class);
-		user = txSupport.save(user);
-		List<Number> revisions = txSupport.getRevisionsForObject(User.class, user.getTechnicalId());
+		User user = txSupport.getPopulatedInstanceWithSystemFields(User.class);
+		user = classUnderTest.save(user);
+		List<Number> revisions = auditDao.getRevisionsForObject(User.class, user.getTechnicalId());
 		int lastRevision = revisions.get(revisions.size() - 1).intValue();
 
 		user.setUsername(user.getUsername() + "2");
-		user = txSupport.save(user);
+		user = classUnderTest.save(user);
 
-		List<Number> revisionsAfterUpdate = txSupport.getRevisionsForObject(User.class,
+		List<Number> revisionsAfterUpdate = auditDao.getRevisionsForObject(User.class,
 				user.getTechnicalId());
 		int lastRevisionAfterUpdate = revisionsAfterUpdate.get(revisionsAfterUpdate.size() - 1)
 				.intValue();
@@ -86,17 +90,17 @@ public class UserDaoIntegrationTest extends M2mDaoBaseIntegrationTest {
 	public void testFindUserByUsername() {
 		String usernameToSearch = "FIND_ME";
 		String techIdToFind;
-		User dontFindMe = txSupport.getPopulatedInstanceToBeSaved(User.class);
+		User dontFindMe = txSupport.getPopulatedInstanceWithSystemFields(User.class);
 		classUnderTest.save(dontFindMe);
-		User dontFindMeEither = txSupport.getPopulatedInstanceToBeSaved(User.class);
+		User dontFindMeEither = txSupport.getPopulatedInstanceWithSystemFields(User.class);
 		dontFindMeEither.setUsername(dontFindMe.getUsername() + "2");
 		classUnderTest.save(dontFindMeEither);
-		User findMe = txSupport.getPopulatedInstanceToBeSaved(User.class);
+		User findMe = txSupport.getPopulatedInstanceWithSystemFields(User.class);
 		findMe.setUsername(usernameToSearch);
 		classUnderTest.save(findMe);
 		techIdToFind = findMe.getTechnicalId();
 
-		User userFound = classUnderTest.findUserByUsername(usernameToSearch);
+		User userFound = classUnderTest.findByUsername(usernameToSearch);
 
 		assertEquals(techIdToFind, userFound.getTechnicalId());
 		assertEquals(usernameToSearch, userFound.getUsername());

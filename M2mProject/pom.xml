@@ -20,6 +20,7 @@
 		<module>M2mDependencyCalls</module>
 		<module>M2mModel</module>
 		<module>M2mCommon</module>
+		<module>M2mTestSupport</module>
 	</modules>
 	<repositories>
 		<repository>
@@ -67,34 +68,16 @@
 			</exclusions>
 		</dependency>
 
-		<!-- This dependency must be added because the Hibernate JpaModelGen plugin 
-			below does not include this lib in classpath after maven clean is executed. 
-			Subsequent maven install fails with "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor 
-			not found". This can be replicated by commenting out this library and doing 
-			maven clean + install -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-jpamodelgen</artifactId>
-			<version>${hibernate_version}</version>
-			<optional>true</optional>
-		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
-				<version>2.4</version>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
-					<showDeprecation>true</showDeprecation>
-					<showWarnings>true</showWarnings>
-					<executable>${env.JAVA_HOME}/bin/javac</executable>
-					<fork>true</fork>
-					<compilerArguments>
-						<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-					</compilerArguments>
 				</configuration>
 			</plugin>
 		</plugins>

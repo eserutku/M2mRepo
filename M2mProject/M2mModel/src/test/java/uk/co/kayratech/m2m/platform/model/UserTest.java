@@ -1,8 +1,8 @@
 package uk.co.kayratech.m2m.platform.model;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 import java.util.Locale;
@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
 import uk.co.kayratech.m2m.platform.common.i18n.MessageProvider;
-import uk.co.kayratech.m2m.platform.model.support.UserSupport;
 
 public class UserTest extends M2mModelBaseTest {
 
@@ -21,8 +20,6 @@ public class UserTest extends M2mModelBaseTest {
 	
 	private static final Locale testLocale = Locale.ENGLISH;
 	
-	private UserSupport support = new UserSupport();
-
 	@BeforeClass
 	public static void beforeClass() {
 		InheritableThreadLocalContext.instance.get().setLocale(testLocale);
@@ -30,9 +27,11 @@ public class UserTest extends M2mModelBaseTest {
 
 	@Test
 	public void testObjectWithNullTechnicalIdFailsEquals() {
-		User user = support.getPopulatedInstanceWithSystemFields(User.class);
-		User anotherUser = support.getPopulatedInstanceWithSystemFields(User.class);
+		User user = new User();
+		user.setTechnicalId(UUID.randomUUID().toString());
+		user.setIntegrationId(UUID.randomUUID().toString());
 		
+		User anotherUser = new User();
 		anotherUser.setTechnicalId(user.getTechnicalId());
 		anotherUser.setIntegrationId(user.getIntegrationId());
 		user.setTechnicalId(null);
@@ -42,9 +41,11 @@ public class UserTest extends M2mModelBaseTest {
 
 	@Test
 	public void testIfOtherObjectHasNullTechnicalIdEqualsFails() {
-		User user = support.getPopulatedInstanceWithSystemFields(User.class);
-		User anotherUser = support.getPopulatedInstanceWithSystemFields(User.class);
+		User user = new User();
+		user.setTechnicalId(UUID.randomUUID().toString());
+		user.setIntegrationId(UUID.randomUUID().toString());
 		
+		User anotherUser = new User();
 		anotherUser.setTechnicalId(user.getTechnicalId());
 		anotherUser.setIntegrationId(user.getIntegrationId());
 		anotherUser.setTechnicalId(null);
@@ -59,16 +60,22 @@ public class UserTest extends M2mModelBaseTest {
 			longIntegrationId.append(UUID.randomUUID().toString());
 		}
 		int integrationIdSize = longIntegrationId.length();
-		User user = support.getPopulatedInstanceWithSystemFields(User.class);
+		User user = new User();
+		user.setTechnicalId(UUID.randomUUID().toString());
 		user.setIntegrationId(longIntegrationId.toString());
 
 		List<String> validationMsgs = BaseEntity.validate(user);
 
-		assertTrue(validationMsgs.size() == 1);
-
+		assertTrue(validationMsgs.size() > 1);
+		
 		String expectedMsg = MessageProvider.getMessage(
 				"integrationid.too.long", new Object[] {
 						INTEGRATION_ID_MAX_SIZE, integrationIdSize }, testLocale);
-		assertEquals(expectedMsg, validationMsgs.get(0));
+		for (String validationMsg : validationMsgs)
+		{
+			if (validationMsg.equals(expectedMsg)) return;
+		}
+
+		fail("None of the validation messages matched expected message: " + expectedMsg);
 	}
 }

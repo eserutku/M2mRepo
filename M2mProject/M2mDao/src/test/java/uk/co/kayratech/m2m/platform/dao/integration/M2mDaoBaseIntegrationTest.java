@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import uk.co.kayratech.m2m.platform.common.context.InheritableThreadLocalContext;
-import uk.co.kayratech.m2m.platform.dao.integration.support.UserTxSupport;
+import uk.co.kayratech.m2m.platform.dao.UserDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/META-INF/spring/m2mDaoAppContext.xml" })
@@ -20,7 +20,7 @@ import uk.co.kayratech.m2m.platform.dao.integration.support.UserTxSupport;
 public class M2mDaoBaseIntegrationTest {
 
 	@Autowired
-	private UserTxSupport userSupport;
+	private UserDao userDao;
 	
 	@BeforeClass
 	public static void beforeClass() {
@@ -34,7 +34,7 @@ public class M2mDaoBaseIntegrationTest {
 
 	@Before
 	public void setUp() throws Exception {
-		userSupport.deleteAll();
+		userDao.deleteAll();
 	}
 
 	@After

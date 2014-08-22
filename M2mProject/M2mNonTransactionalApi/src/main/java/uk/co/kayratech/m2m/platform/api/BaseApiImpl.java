@@ -4,5 +4,5 @@ import uk.co.kayratech.m2m.platform.model.BaseEntity;
 import uk.co.kayratech.m2m.platform.txlogic.BaseTxLogic;
 
 public abstract class BaseApiImpl<T extends BaseEntity> implements BaseApi<T> {
-	protected abstract BaseTxLogic<BaseEntity> getTxLogic();
+	protected abstract BaseTxLogic<T> getTxLogic();
 }

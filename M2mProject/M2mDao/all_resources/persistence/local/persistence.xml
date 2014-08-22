@@ -13,6 +13,8 @@
 		<class>uk.co.kayratech.m2m.platform.model.audit.AuditRevisionEntity</class>
 		<class>uk.co.kayratech.m2m.platform.model.lov.UserType</class>
 		<class>uk.co.kayratech.m2m.platform.model.lov.AuthenticationStatus</class>
+		<class>uk.co.kayratech.m2m.platform.model.security.Permission</class>
+		<class>uk.co.kayratech.m2m.platform.model.security.Role</class>
 		
 		<properties>
 			<!-- Auditing properties Start -->

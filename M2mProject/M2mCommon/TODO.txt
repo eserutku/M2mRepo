@@ -4,3 +4,6 @@
 - Implement AOP to get method execution times
 - Change the code in BaseEntity for validation: Check if size has a min defined and if so then include this in the message. Assign a min size to User's username and test
 - Add email to the User object and its regex validation
+- DB password is clear text in properties file. Use encryption
+- Find by example in BaseDaoImpl to be implemented
+- Implement cache mechanism for LovType and LovValue in Dao layer (Cache them using Map with tech key as the key. Also, cache LovValues under LovTypes but LovValues should only have tech key populated to make it easier to fetch full data from Map)

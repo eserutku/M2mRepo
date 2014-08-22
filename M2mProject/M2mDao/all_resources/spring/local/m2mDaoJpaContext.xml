@@ -14,8 +14,7 @@
 		<property name="password" value="${db.password}" />
 	</bean>
 
-	<jpa:repositories base-package="uk.co.kayratech.m2m.platform.dao"
-		factory-class="uk.co.kayratech.m2m.platform.factory.CustomRepositoryFactoryBean"></jpa:repositories>
+	<jpa:repositories base-package="uk.co.kayratech.m2m.platform.dao"></jpa:repositories>
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">

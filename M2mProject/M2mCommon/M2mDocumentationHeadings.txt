@@ -3,6 +3,7 @@ Dependencies on M2M
 Changes to be made for other projects
 All package names
 All Spring configuration files
+All application.properties files
 Common:
 - uk.co.kayratech.m2m.platform.common.exceptions M2MBusinessException
 Model:
@@ -82,6 +83,11 @@ Dao
 	
 TxLogic
 - Setting Dao in Base Tx class implementation using abstract getDao and similarity of this architecture to setting Dao and Support classes in Dao project's TxSupport Base class
+
+NonTxLogic
+- Enabling authentication manager from properties file and at least one should be enabled
+- Each public API must have a unique permission
+- Permissions can be grouped together to make appropriate system roles (such as admin, user etc). Roles cannot have other roles
 
 Deployment
 
